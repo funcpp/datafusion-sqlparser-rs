@@ -90,4 +90,9 @@ impl Dialect for DatabricksDialect {
     fn supports_optimize_table(&self) -> bool {
         true
     }
+
+    /// See <https://docs.databricks.com/aws/en/sql/language-manual/sql-ref-syntax-qry-select-cte>
+    fn supports_cte_without_as(&self) -> bool {
+        true
+    }
 }
