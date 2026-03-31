@@ -677,4 +677,19 @@ fn parse_cte_without_as() {
     assert!(all_dialects_where(|d| !d.supports_cte_without_as())
         .parse_sql_statements("WITH cte (SELECT 1) SELECT * FROM cte")
         .is_err());
+
+}
+
+#[test]
+fn parse_select_item_multi_column_alias() {
+    databricks_and_generic().verified_stmt("SELECT stack(2, 'a', 'b', 'c', 'd') AS (col1, col2)");
+
+    databricks_and_generic()
+        .verified_stmt("SELECT stack(2, 'a', 'b', 'c', 'd') AS (col1, col2) FROM t");
+
+    assert!(
+        all_dialects_where(|d| !d.supports_select_item_multi_column_alias())
+            .parse_sql_statements("SELECT stack(2, 'a', 'b') AS (col1, col2)")
+            .is_err()
+    );
 }

@@ -19,7 +19,7 @@ use crate::dialect::Dialect;
 
 /// A [`Dialect`] for [Databricks SQL](https://www.databricks.com/)
 ///
-/// See <https://docs.databricks.com/en/sql/language-manual/index.html>.
+    /// See <https://docs.databricks.com/en/sql/language-manual/index.html>.
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct DatabricksDialect;
@@ -95,13 +95,18 @@ impl Dialect for DatabricksDialect {
         true
     }
 
-/// See <https://docs.databricks.com/aws/en/sql/language-manual/functions/bangsign>
+    /// See <https://docs.databricks.com/aws/en/sql/language-manual/functions/bangsign>
     fn supports_bang_not_operator(&self) -> bool {
         true
     }
 
     /// See <https://docs.databricks.com/aws/en/sql/language-manual/sql-ref-syntax-qry-select-cte>
     fn supports_cte_without_as(&self) -> bool {
+        true
+    }
+
+
+    fn supports_select_item_multi_column_alias(&self) -> bool {
         true
     }
 }
